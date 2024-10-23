@@ -3,7 +3,7 @@ import "../globals.css";
 export default function Header(){
     return (
 
-        <header className="p-3 lg:p-5">
+        <header className="p-3 lg:p-5 w-full">
             <h1 className="text-xl py-4 px-2">John Doe's Tasks</h1>
 
             <div className="flex justify-between flex-wrap">
