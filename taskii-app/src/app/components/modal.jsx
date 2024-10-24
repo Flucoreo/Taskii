@@ -2,21 +2,52 @@ import { checkCustomRoutes } from 'next/dist/lib/load-custom-routes'
 import React, { useState, useEffect } from 'react'
 
 export default function Modal( {onHideModal} ){
-    const [list, setList] = useState([{checked: false, value: "do another thing", key: "b"}, {checked: false, value: "do this other thing", key: "c"}, {checked: false, value: "do that other thing", key: "d"}])
+    let currentDate = new Date().toJSON().slice(0, 10);
 
-    // bad! key = value
-    function addItemToList(data){
-        setList((old) => (
-            [
-                ...old,
-                {
-                    checked: false,
-                    value: data,
-                    key: data,
-                }
-            ]
-        ))
+    const [task, setTask] = useState({
+
+        id: generateRandomId(),
+        title: "",
+        notes: "",
+        completed: false,
+        group: "",
+        dueDate: "",
+        priority: "low",
+        progress: "Not Started",
+        dateCreated: {currentDate},
+        dateModified: "",
+        checklist: []
+
+    })
+
+    // create a random ID for the task
+    function generateRandomId() {
+        const length = 8;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const charactersLength = characters.length;
+    
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+    
+        return result;
     }
+
+    // create a task
+    function handleFormUpdate(event){
+        const {name, value} = event.target
+
+        setTask((previousData) => (
+            {
+                ...previousData,
+                [name]: value
+            }
+        ))
+
+        console.log(task)
+    }
+    
 
     return (
         <div className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center overflow-auto'>
@@ -26,9 +57,22 @@ export default function Modal( {onHideModal} ){
                 </button>
 
                 <div className='bg-white h-[85dvh] p-8'>
-                    <input className="w-[40ch] py-3 text-xl" id="tast-title" type="text" placeholder="Task..."></input>
-                    <p className='text-sm py-3'>Created on 12/12/2024</p>
 
+                    {/* task title */}
+                    <input 
+                        className="w-[40ch] py-3 text-xl" 
+                        id="task-title" 
+                        type="text" 
+                        placeholder="Task..." 
+                        name="title"
+                        onChange={handleFormUpdate}
+                        value={task.title}
+                    ></input>
+
+                    {/* Dates */}
+                    <p className='text-sm py-3'>Created on {currentDate}</p>
+
+                    {/* task options */}
                     <div className='flex gap-5'>
                         <Dropdown label="Group" data={["Grocery", "Cleaning", "Chores"]}/>
                         <Dropdown label="Priority" data={["Low", "Medium", "High", "Urgent"]}/>
@@ -37,14 +81,19 @@ export default function Modal( {onHideModal} ){
                         <Dropdown label="Progress" data={["Not Started", "In Progress", "Completed"]}/>
                         <Callendar />
                     </div>
+
+                    {/* task notes */}
                     <TextArea />
+                    <button className="my-4 px-6 py-2 rounded-md bg-indigo-600 inline-block text-white text-sm">Create Task</button>
                     {/* <Checklist list={list} onAdd={() => addItemToList()}/> */}
+
                 </div>
 
             </div>
         </div>
     )
 }
+
 
 
 function Dropdown({label, data}){
