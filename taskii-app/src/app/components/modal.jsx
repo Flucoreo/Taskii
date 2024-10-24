@@ -1,13 +1,13 @@
 import { checkCustomRoutes } from 'next/dist/lib/load-custom-routes'
 import React, { useState, useEffect } from 'react'
 
-export default function Modal( {onHideModal} ){
+export default function Modal( {onHideModal, onCreate} ){
     let currentDate = new Date().toJSON().slice(0, 10);
 
     const [task, setTask] = useState({
 
         id: generateRandomId(),
-        title: "",
+        title: "Untitled Task",
         notes: "",
         completed: false,
         group: "",
@@ -104,6 +104,7 @@ export default function Modal( {onHideModal} ){
                         name="title"
                         onChange={handleFormUpdate}
                         value={task.title}
+                        required
                     ></input>
 
                     {/* Dates */}
@@ -170,7 +171,7 @@ export default function Modal( {onHideModal} ){
                     </div>
 
                     {/* create task */}
-                    <button className="my-4 px-6 py-2 rounded-md bg-indigo-600 inline-block text-white text-sm">Create Task</button>
+                    <button onClick={() => {onCreate(task); onHideModal()}} className="my-4 px-6 py-2 rounded-md bg-indigo-600 inline-block text-white text-sm">Create Task</button>
                 </div>
 
             </div>

@@ -36,6 +36,11 @@ export default function App(){
         }])
     }
 
+    // logging the task as it changes
+    useEffect(() => {
+        console.log(taskList);
+    }, [taskList]);
+
     return (
         <div className="h-dvh">
             <Nav />
@@ -48,7 +53,7 @@ export default function App(){
                 </div>
             </div>
 
-            {viewModal && <Modal onHideModal={() => setViewModal(false)}/>}
+            {viewModal && <Modal onHideModal={() => setViewModal(false)} onCreate={addTask}/>}
         </div>
     );
 }

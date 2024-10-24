@@ -24,7 +24,7 @@ export default function Task(props){
             </ul>
 
             <div className="mt-3 flex justify-between">
-                <p className="text-gray-500 text-sm">{props.dueDate}</p>
+                <p className="text-gray-500 text-sm">{props.dueDate ? "Due: " + props.dueDate : "No due date"}</p>
                 <p className="text-gray-500 text-sm">Priority: {props.priority}</p>
             </div>
 
