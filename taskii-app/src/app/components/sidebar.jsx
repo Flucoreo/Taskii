@@ -2,7 +2,7 @@
 import "../globals.css";
 import React, {useState} from 'react'
 
-export default function SideBar(){
+export default function SideBar( {onShowModal} ){
     const [viewSideBar, setViewSideBar] = useState(true)
 
     function handleViewSideBar(){
@@ -14,12 +14,15 @@ export default function SideBar(){
         <div className={`w-72 h-full border-r-2 border-gray-300 border-solid ${viewSideBar ? "" : "bg-red-100"}`}>
 
             <div className="px-5 pt-2.5 border-b-1 border-gray-300 border-solid">
-                <button onClick={handleViewSideBar}>
+                <button>
                     <img className="w-7" src="https://www.svgrepo.com/show/506800/burger-menu.svg"></img>
                 </button>
             </div>
 
-            <button className="flex items-center px-6 py-4 w-full">
+            <button 
+                className="flex items-center px-6 py-4 w-full" 
+                onClick={onShowModal}
+            >
                 <img className="w-6" src="https://www.svgrepo.com/show/532997/plus-large.svg"></img>
                 <h3 className="pl-5">New Task</h3>
             </button>
