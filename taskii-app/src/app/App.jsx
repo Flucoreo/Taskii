@@ -17,6 +17,9 @@ export default function App(){
     // container holding all tasks
     const [taskList, setTaskList] = useState(data)
 
+    // filter states (search, filter, group by)
+    const [searchKey, setSearchKey] = useState("")
+   
     // add a task
     function addTask(taskObject){
         setTaskList((oldTasks) => [...oldTasks, {
@@ -37,9 +40,9 @@ export default function App(){
     }
 
     // logging the task as it changes
-    useEffect(() => {
-        console.log(taskList);
-    }, [taskList]);
+    // useEffect(() => {
+    //     console.log(taskList);
+    // }, [taskList]);
 
     return (
         <div className="h-dvh">
@@ -48,8 +51,8 @@ export default function App(){
             <div className="h-[calc(100dvh-3rem)] flex">
                 <SideBar onShowModal={() => setViewModal(true)}/>
                 <div className="w-full flex flex-col">
-                    <Header addTask={() => addTask()}/>
-                    <Main taskData={taskList}/>
+                    <Header searchKey={searchKey} setSearchKey={setSearchKey}/>
+                    <Main taskData={taskList} searchKey={searchKey}/>
                 </div>
             </div>
 
