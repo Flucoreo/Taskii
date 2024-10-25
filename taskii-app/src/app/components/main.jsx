@@ -31,7 +31,7 @@ export default function Main( {taskData , searchKey} ){
     }
 
     return (
-        <main className="bg-black flex-grow bg-gray-100 overflow-auto flex flex-wrap">
+        <main className="bg-black flex-grow bg-gray-100 overflow-auto flex flex-wrap items-start">
             {tasks}
         </main>
     )

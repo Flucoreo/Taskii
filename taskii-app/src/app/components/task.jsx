@@ -8,7 +8,7 @@ export default function Task(props){
     ))
 
     return (
-        <div className="bg-white w-64 p-3 m-3 shadow-md rounded-md">
+        <div className="bg-white w-64 p-3 m-3 shadow-md rounded-md ">
 
             <div className="mb-2 flex items-center">
                 <input type="checkbox"></input>
