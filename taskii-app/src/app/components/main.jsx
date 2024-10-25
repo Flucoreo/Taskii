@@ -4,30 +4,20 @@ import "../globals.css"
 
 import Task from "./task"
 
-export default function Main( {taskData , searchKey} ){
-
-    useEffect(() => {
-        console.log(searchKey);
-    }, [searchKey]);
-
+export default function Main( {taskData , searchKey, completedTask} ){
     
     let tasks = []
 
-    // filter tasks when search box is used
-    if (!searchKey){
-        tasks = taskData.map((item) => (
-            <Task key={item.id} {...item}/>
-        )) 
-    } else {
-        tasks = taskData.filter((i) => checkTitleForSearch(i)).map((item) => (
-            <Task key={item.id} {...item}/>
-        ))
-    }
+    tasks = taskData.filter((i) => filterSearchAndCompleted(i)).map((item) => (
+        <Task key={item.id} {...item} completedTask={completedTask}/>
+    ))
 
-    function checkTitleForSearch(task){
+    function filterSearchAndCompleted(task){
+        let completed = !task.completed
         let lowerTitle = task.title.toLowerCase()
         let lowerKey = searchKey.toLowerCase()
-        return lowerTitle.includes(lowerKey)
+
+        return (searchKey ? lowerTitle.includes(lowerKey) : true) && completed
     }
 
     return (

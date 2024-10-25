@@ -39,10 +39,14 @@ export default function App(){
         }])
     }
 
-    // logging the task as it changes
-    // useEffect(() => {
-    //     console.log(taskList);
-    // }, [taskList]);
+    // set a task ask completed if checked
+    function completedTask(id){
+        setTaskList((oldTasks) => (
+            oldTasks.map((task) => (
+                task.id === id ? {...task, completed: !task.completed} : task
+            ))
+        ))
+    }
 
     return (
         <div className="h-dvh">
@@ -52,7 +56,7 @@ export default function App(){
                 <SideBar onShowModal={() => setViewModal(true)}/>
                 <div className="w-full flex flex-col">
                     <Header searchKey={searchKey} setSearchKey={setSearchKey}/>
-                    <Main taskData={taskList} searchKey={searchKey}/>
+                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey}/>
                 </div>
             </div>
 
