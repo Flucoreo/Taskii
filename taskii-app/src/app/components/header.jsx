@@ -5,7 +5,7 @@ export default function Header( {searchKey, setSearchKey} ){
     return (
 
         <header className="p-3 lg:p-3 w-full">
-            <h1 className="text-xl py-4 px-2">John Doe's Tasks</h1>
+            <h1 className="text-xl py-4 px-2">Your Tasks:</h1>
 
             <div className="flex justify-between flex-wrap">
 

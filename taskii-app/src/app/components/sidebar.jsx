@@ -2,16 +2,12 @@
 import "../globals.css";
 import React, {useState} from 'react'
 
-export default function SideBar( {onShowModal} ){
-    const [viewSideBar, setViewSideBar] = useState(true)
-
-    function handleViewSideBar(){
-        setViewSideBar((old) => !old)
-    }
+export default function SideBar( {onShowModal, onShowCompleted} ){
+    // true to highlight "all tasks" button false to highlight "completed tasks" button
+    const [highlightButton, setHighlightButton] = useState("true")
 
     return (
-        // weird all around border issue
-        <div className={`w-72 h-full border-r-2 border-gray-300 border-solid ${viewSideBar ? "" : "bg-red-100"}`}>
+        <div className={`w-72 h-full border-r-2 border-gray-300 border-solid`}>
 
             <div className="px-5 pt-2.5 border-b-1 border-gray-300 border-solid">
                 <button>
@@ -21,13 +17,24 @@ export default function SideBar( {onShowModal} ){
 
             <button 
                 className="flex items-center px-6 py-4 w-full" 
-                onClick={onShowModal}
+                onClick={() => onShowModal()}
             >
                 <img className="w-6" src="https://www.svgrepo.com/show/532997/plus-large.svg"></img>
                 <h3 className="pl-5">New Task</h3>
             </button>
 
-            <button className="flex items-center px-6 py-4 w-full">
+            <button 
+                className={`flex items-center px-6 py-4 w-full ${highlightButton ? "bg-gray-200 rounded-md" : ""}`}
+                onClick={() => {onShowCompleted(false); setHighlightButton(true)}}
+            >
+                <img className="w-6" src="https://www.svgrepo.com/show/500326/all-layers.svg"></img>
+                <h3 className="pl-5">All Tasks</h3>
+            </button>
+
+            <button 
+                className={`flex items-center px-6 py-4 w-full ${!highlightButton ? "bg-gray-200 rounded-md" : ""}`}
+                onClick={() => {onShowCompleted(true); setHighlightButton(false)}}
+            >
                 <img className="w-6" src="https://www.svgrepo.com/show/510896/check-all.svg"></img>
                 <h3 className="pl-5">Completed Tasks</h3>
             </button>

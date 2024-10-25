@@ -19,6 +19,9 @@ export default function App(){
 
     // filter states (search, filter, group by)
     const [searchKey, setSearchKey] = useState("")
+
+    // state that displays completed or uncompleted tasks
+    const [showCompleted, setShowCompleted] = useState(false)
    
     // add a task
     function addTask(taskObject){
@@ -48,15 +51,17 @@ export default function App(){
         ))
     }
 
+    // console.log(showCompleted)
+
     return (
         <div className="h-dvh">
             <Nav />
 
             <div className="h-[calc(100dvh-3rem)] flex">
-                <SideBar onShowModal={() => setViewModal(true)}/>
+                <SideBar onShowModal={() => setViewModal(true)} onShowCompleted={setShowCompleted}/>
                 <div className="w-full flex flex-col">
                     <Header searchKey={searchKey} setSearchKey={setSearchKey}/>
-                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey}/>
+                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted}/>
                 </div>
             </div>
 
