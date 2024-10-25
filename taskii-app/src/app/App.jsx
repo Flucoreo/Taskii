@@ -51,7 +51,15 @@ export default function App(){
         ))
     }
 
-    // console.log(showCompleted)
+    // delete task 
+    function deleteTask(id){
+        setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
+    }
+
+    // logging the task as it changes
+    // useEffect(() => {
+    //     console.log(taskList);
+    // }, [taskList]);
 
     return (
         <div className="h-dvh">
@@ -61,7 +69,7 @@ export default function App(){
                 <SideBar onShowModal={() => setViewModal(true)} onShowCompleted={setShowCompleted}/>
                 <div className="w-full flex flex-col">
                     <Header searchKey={searchKey} setSearchKey={setSearchKey}/>
-                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted}/>
+                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted} onDelete={deleteTask}/>
                 </div>
             </div>
 

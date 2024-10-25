@@ -81,13 +81,6 @@ export default function Modal( {onHideModal, onCreate} ){
         <li className="text-sm ml-2" key={i.id}>{i.value}</li>
     ))
 
-
-    // logging the task as it changes
-    // useEffect(() => {
-    //     console.log(task);
-    // }, [task]);
-
-
     return (
         <div className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center flex-col'>
             

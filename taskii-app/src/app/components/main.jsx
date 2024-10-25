@@ -4,17 +4,17 @@ import "../globals.css"
 
 import Task from "./task"
 
-export default function Main( {taskData , searchKey, completedTask, showCompleted} ){
+export default function Main( {taskData , searchKey, completedTask, showCompleted, onDelete} ){
     
     let tasks = []
 
     if (showCompleted){
         tasks = taskData.filter((i) => completedTasks(i)).map((item) => (
-            <Task key={item.id} {...item} completedTask={completedTask}/>
+            <Task key={item.id} {...item} completedTask={completedTask} onDelete={onDelete}/>
         ))
     } else {
         tasks = taskData.filter((i) => filterSearchAndCompleted(i)).map((item) => (
-            <Task key={item.id} {...item} completedTask={completedTask}/>
+            <Task key={item.id} {...item} completedTask={completedTask} onDelete={onDelete}/>
         ))
     }
 
