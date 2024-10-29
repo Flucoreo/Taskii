@@ -45,7 +45,7 @@ Make sure you have the following installed:
 3. Navigate to the back-end directory start the JSON server
 
     ```
-    json-server --watch db.json --port 5000
+    json-server --watch db.json --port 4000
     ```
 
 4. In a new terminal window, start the React application
