@@ -12,7 +12,7 @@ export default function Task(props){
     {/* task display if it has been completed */}
     const cover = (<div className='absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center flex-col'>
                 <div className="flex flex-col items-center">
-                    <button onClick={() => props.completedTask(props.id)} className="my-2 px-6 py-2 rounded-md bg-emerald-600 inline-block text-white text-sm">Restore</button>
+                    <button onClick={() => props.completedTask(props)} className="my-2 px-6 py-2 rounded-md bg-emerald-600 inline-block text-white text-sm">Restore</button>
                     <button onClick={() => props.onDelete(props.id)} className="my-2 px-6 py-2 rounded-md bg-red-500 inline-block text-white text-sm">Delete</button>
                 </div>
             </div>)
@@ -23,7 +23,7 @@ export default function Task(props){
 
             {/* Display task */}
             <div className="mb-2 flex items-center">
-                <input type="checkbox" onChange={() => props.completedTask(props.id)}></input>
+                <input type="checkbox" onChange={() => props.completedTask(props)}></input>
                 <h2 className="pl-2 text-xl">{props.title}</h2>
             </div>
             

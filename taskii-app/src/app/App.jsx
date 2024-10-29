@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import Nav from "./components/nav"
 import Header from "./components/header"
@@ -7,59 +8,88 @@ import SideBar from "./components/sidebar"
 import Main from "./components/main"
 import Modal from "./components/modal"
 
-import data from "./components/data"
-
-
 export default function App(){
     // state that controls the pop-up (modal) to create a task
     const [viewModal, setViewModal] = useState(false);
-
     // container holding all tasks
-    const [taskList, setTaskList] = useState(data)
-
+    const [taskList, setTaskList] = useState([])
     // filter states (search, filter, group by)
     const [searchKey, setSearchKey] = useState("")
-
     // state that displays completed or uncompleted tasks
     const [showCompleted, setShowCompleted] = useState(false)
+    // temp task for updating completed value
+    const [tempTask, setTempTask] = useState({})
+    // error
+    // const [error, setError] = useState("")
+
+    // json server API
+    const URL = "http://localhost:4000/tasks"
    
+    // pull the task data from the API
+    useEffect(() => {
+        axios.get(URL)
+            .then(response => {
+                setTaskList(response.data)
+                // setError("")
+            })
+            .catch(error => {
+                console.log("Error fetching tasks")
+                // setError(error)
+                throw error
+            })
+    }, [])
+
     // add a task
     function addTask(taskObject){
-        setTaskList((oldTasks) => [...oldTasks, {
+        axios.post(URL, taskObject)
+            .then((response) => {
+                setTaskList((oldTasks) => [...oldTasks, {
             
-            id: taskObject.id,
-            title: taskObject.title,
-            notes: taskObject.notes,
-            completed: taskObject.completed,
-            group: taskObject.group,
-            dueDate: taskObject.dueDate,
-            priority: taskObject.priority,
-            progress: taskObject.progress,
-            dateCreated: taskObject.dateCreated,
-            dateModified: taskObject.dateModified,
-            checklist: taskObject.checklist
-            
-        }])
-    }
-
-    // set a task ask completed if checked
-    function completedTask(id){
-        setTaskList((oldTasks) => (
-            oldTasks.map((task) => (
-                task.id === id ? {...task, completed: !task.completed} : task
-            ))
-        ))
+                    id: response.data.id,
+                    title: response.data.title,
+                    notes: response.data.notes,
+                    completed: response.data.completed,
+                    group: response.data.group,
+                    dueDate: response.data.dueDate,
+                    priority: response.data.priority,
+                    progress: response.data.progress,
+                    dateCreated: response.data.dateCreated,
+                    dateModified: response.data.dateModified,
+                    checklist: response.data.checklist
+                    
+                }])
+                // setError("")
+            })
+            .catch(error => {
+                console.log("Error adding task")
+                // setError(error)
+                throw error
+            })
     }
 
     // delete task 
     function deleteTask(id){
-        setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
+        axios.delete(`${URL}/${id}`)
+            .then(() => {
+                setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
+            })
     }
 
-    // logging the task as it changes
-    // useEffect(() => {
-    //     console.log(taskList);
-    // }, [taskList]);
+    // mark a task completed
+    function completedTask(task){
+        // create a copy of task so we dont mutate the state
+        const taskCopy = JSON.parse(JSON.stringify(task))
+        taskCopy.completed = !taskCopy.completed
+
+        axios.put(`${URL}/${task.id}`, taskCopy)
+            .then((response) => {
+                setTaskList((oldTasks) => (
+                    oldTasks.map((t) => (
+                        t.id === task.id ? {...taskCopy} : t
+                    ))
+                ))
+            })
+    }
 
     return (
         <div className="h-dvh">
@@ -69,7 +99,9 @@ export default function App(){
                 <SideBar onShowModal={() => setViewModal(true)} onShowCompleted={setShowCompleted}/>
                 <div className="w-full flex flex-col">
                     <Header searchKey={searchKey} setSearchKey={setSearchKey}/>
-                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted} onDelete={deleteTask}/>
+                    {/* { error && <p>Error Could not fetch tasks</p> } */}
+                    {/* { !error && <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted} onDelete={deleteTask}/>} */}
+                    <Main completedTask={completedTask} taskData={taskList} searchKey={searchKey} showCompleted={showCompleted} onDelete={deleteTask} />
                 </div>
             </div>
 
@@ -77,3 +109,7 @@ export default function App(){
         </div>
     );
 }
+
+
+// run json server
+// npx json-server --watch db.json --port 4000
