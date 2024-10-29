@@ -7,9 +7,9 @@ export default function SideBar( {onShowModal, onShowCompleted} ){
     const [highlightButton, setHighlightButton] = useState("true")
 
     return (
-        <div className={`w-72 h-full border-r-2 border-gray-300 border-solid`}>
+        <div className={`w-72 h-full border-r-1 border-gray-300 border-solid`}>
 
-            <div className="px-5 pt-2.5 border-b-1 border-gray-300 border-solid">
+            <div className="px-5 pt-2.5" style={{ borderBottom: "1px solid #D1D5DB" }}>
                 <button>
                     <img className="w-7" src="https://www.svgrepo.com/show/506800/burger-menu.svg"></img>
                 </button>
