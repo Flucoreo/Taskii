@@ -150,7 +150,7 @@
       "id": "task4-jkl012",
       "title": "Read Book",
       "notes": "Finish reading the assigned book for literature class.",
-      "completed": true,
+      "completed": false,
       "group": "study",
       "dueDate": "10/25/2024",
       "priority": "low",
@@ -215,6 +215,36 @@
       "progress": "Not Started",
       "dateCreated": {
         "currentDate": "2024-10-29"
+      },
+      "dateModified": "",
+      "checklist": []
+    },
+    {
+      "id": "6wLi48eh",
+      "title": "Untitled Task",
+      "notes": "",
+      "completed": false,
+      "group": "",
+      "dueDate": "",
+      "priority": "Low",
+      "progress": "Not Started",
+      "dateCreated": {
+        "currentDate": "2024-11-09"
+      },
+      "dateModified": "",
+      "checklist": []
+    },
+    {
+      "id": "4UPTWzEb",
+      "title": "Untitled Task",
+      "notes": "",
+      "completed": true,
+      "group": "",
+      "dueDate": "",
+      "priority": "Low",
+      "progress": "Not Started",
+      "dateCreated": {
+        "currentDate": "2024-11-09"
       },
       "dateModified": "",
       "checklist": []

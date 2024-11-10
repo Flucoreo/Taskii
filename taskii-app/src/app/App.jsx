@@ -111,5 +111,10 @@ export default function App(){
 }
 
 
-// run json server
+    // run json server
 // npx json-server --watch db.json --port 4000
+
+
+// npm run dev for front end
+// npm run start-data-base for db (must be in taskii-app directory)
+// add for starting api
