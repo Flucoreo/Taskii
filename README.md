@@ -5,7 +5,7 @@ A simple and efficient task management dashboard built with **Next.js** and **Re
 ## Features
 
 - Create, read, update, and delete tasks
-- Responsive design
+- Responsive design 
 - Simple and intuitive user interface
 
 ## Technologies Used
@@ -45,7 +45,7 @@ Make sure you have the following installed:
 3. Navigate to the back-end directory start the JSON server
 
     ```
-    json-server --watch db.json --port 4000
+    npx json-server --watch db.json --port 4000
     ```
 
 4. In a new terminal window, start the React application
