@@ -24,6 +24,24 @@ export default function App(){
 
     // json server API
     const URL = "http://localhost:4000/tasks"
+
+
+
+
+
+    // testing pulling data from express api
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:2000/api/tasks');
+            console.log(response);
+        };
+
+        fetchData();
+    }, []);
+
+
+
+
    
     // pull the task data from the API
     useEffect(() => {
@@ -109,12 +127,3 @@ export default function App(){
         </div>
     );
 }
-
-
-    // run json server
-// npx json-server --watch db.json --port 4000
-
-
-// npm run dev for front end
-// npm run start-data-base for db (must be in taskii-app directory)
-// add for starting api

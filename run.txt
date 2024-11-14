@@ -1,0 +1,22 @@
+Run the React app -> 
+
+    npm run dev
+
+
+Run the JSON Server backend -> Navigate into the back-end/data-base-api/ folder -> 
+
+    npx json-server --watch db.json --port 4000
+
+    Shortcut -> Navigate into the taskii-app folder -> 
+        
+        npm run start-json-server
+
+
+Run the Express connection to to the mySQL data base -> Navigate into the back-end/express-api/src folder ->
+
+    npx nodemon db.mjs
+
+
+Run the Express API -> Navigate to the back-end/express-api/src folder ->
+
+    npx nodemon server.mjs

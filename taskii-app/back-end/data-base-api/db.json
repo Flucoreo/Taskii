@@ -208,7 +208,7 @@
       "id": "zDmGtvNo",
       "title": "kjglhkh",
       "notes": "iuhiuhi",
-      "completed": false,
+      "completed": true,
       "group": "",
       "dueDate": "",
       "priority": "Low",
@@ -220,34 +220,45 @@
       "checklist": []
     },
     {
-      "id": "6wLi48eh",
-      "title": "Untitled Task",
+      "id": "cQUZ7WQJ",
+      "title": "car",
       "notes": "",
       "completed": false,
-      "group": "",
+      "group": "Chores",
       "dueDate": "",
       "priority": "Low",
       "progress": "Not Started",
       "dateCreated": {
-        "currentDate": "2024-11-09"
+        "currentDate": "2024-11-13"
       },
       "dateModified": "",
       "checklist": []
     },
     {
-      "id": "4UPTWzEb",
-      "title": "Untitled Task",
-      "notes": "",
-      "completed": true,
+      "id": "bpX1jwiA",
+      "title": "GO to class",
+      "notes": "MAKe sure you go to class tmr!",
+      "completed": false,
       "group": "",
-      "dueDate": "",
-      "priority": "Low",
-      "progress": "Not Started",
+      "dueDate": "2024-11-14",
+      "priority": "Urgent",
+      "progress": "In Progress",
       "dateCreated": {
-        "currentDate": "2024-11-09"
+        "currentDate": "2024-11-14"
       },
       "dateModified": "",
-      "checklist": []
+      "checklist": [
+        {
+          "id": "3byu9cAa",
+          "value": "Class is fun",
+          "checked": false
+        },
+        {
+          "id": "7N2mKy9W",
+          "value": "Class is exciting",
+          "checked": false
+        }
+      ]
     }
   ]
 }
