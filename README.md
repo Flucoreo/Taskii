@@ -12,7 +12,8 @@ A simple and efficient task management dashboard built with **Next.js** and **Re
 
 - **Next.js**: A React framework for server-rendered applications
 - **React**: A JavaScript library for building user interfaces
-- **JSON Server**: A simple way to create a REST API using a JSON file
+- **MySQL**: A relational database management system used to store and query structured data.
+- **Express.JS**: A flexible Node.js web application framework that provides powerful tools building APIs and handling HTTP requests.
 
 ## Getting Started
 
