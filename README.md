@@ -10,8 +10,8 @@ A simple and efficient task management dashboard built with **Next.js** and **Re
 
 ## Technologies Used
 
-- **Next.js**: A React framework for server-rendered applications
-- **React**: A JavaScript library for building user interfaces
+- **Next.JS**: A React framework for server-rendered applications
+- **React.JS**: A JavaScript library for building user interfaces
 - **MySQL**: A relational database management system used to store and query structured data.
 - **Express.JS**: A flexible Node.js web application framework that provides powerful tools building APIs and handling HTTP requests.
 
