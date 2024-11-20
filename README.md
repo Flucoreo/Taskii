@@ -42,13 +42,19 @@ Make sure you have the following installed:
 
 ### Running the Application
 
-3. Navigate to the back-end directory start the JSON server
+3. Navigate to the back-end/src directory to start the MySQL database
 
     ```
-    npx json-server --watch db.json --port 4000
+    npx nodemon db.mjs
     ```
 
-4. In a new terminal window, start the React application
+4. In a new terminal window, navigate to the back-end/src directory to start the Express Server
+
+    ```
+    npx nodemon server.mjs
+    ```
+
+5. Lastly, in a new terminal window, start the React application
 
     ```
     npm run dev

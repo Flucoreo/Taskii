@@ -1,3 +1,4 @@
+// sql schema
 // CREATE TABLE tasks (
 // 	task_id INT PRIMARY KEY AUTO_INCREMENT,
 // 	title TEXT,
@@ -11,6 +12,8 @@
 // 	dateModified DATE,
 // 	checklist TEXT
 // );
+
+
 
 // INSERT INTO tasks (title, notes, completed, task_group, dueDate, priority, progress, dateCreated, dateModified, checklist)
 // VALUES ("Clean the room", "Make sure to clean up bedroom before tonight", 0, "cleaning", "2024-12-12", "Medium", "Not Started", "2024-12-12", "2024-12-12", NULL);
