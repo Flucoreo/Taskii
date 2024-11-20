@@ -19,55 +19,40 @@ export default function App(){
     const [showCompleted, setShowCompleted] = useState(false)
     // temp task for updating completed value
     const [tempTask, setTempTask] = useState({})
-    // error
-    // const [error, setError] = useState("")
 
-    // json server API
-    const URL = "http://localhost:4000/tasks"
+    // express api (.env!)
+    const URL = 'http://localhost:2000'
 
 
-
-
-
-    // testing pulling data from express api
+    // pulling data from express api
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:2000/api/tasks');
-            console.log(response);
+            try {
+                // connect to api
+                const response = await axios.get(`${URL}/api/tasks`);
+                // if successful set the tasklist
+                setTaskList(response.data)
+            } catch (error){
+                // if unsuccessful log the error
+                console.log(error)
+            }
         };
 
         fetchData();
     }, []);
 
 
-
-
-   
-    // pull the task data from the API
-    useEffect(() => {
-        axios.get(URL)
-            .then(response => {
-                setTaskList(response.data)
-                // setError("")
-            })
-            .catch(error => {
-                console.log("Error fetching tasks")
-                // setError(error)
-                throw error
-            })
-    }, [])
-
-    // add a task
+    // post data to api / add a task
     function addTask(taskObject){
-        axios.post(URL, taskObject)
+        axios.post(`${URL}/api/tasks`, taskObject)
             .then((response) => {
                 setTaskList((oldTasks) => [...oldTasks, {
             
-                    id: response.data.id,
+                    task_id: response.data.task_id,
                     title: response.data.title,
                     notes: response.data.notes,
                     completed: response.data.completed,
-                    group: response.data.group,
+                    task_group: response.data.task_group,
                     dueDate: response.data.dueDate,
                     priority: response.data.priority,
                     progress: response.data.progress,
@@ -76,37 +61,35 @@ export default function App(){
                     checklist: response.data.checklist
                     
                 }])
-                // setError("")
             })
             .catch(error => {
                 console.log("Error adding task")
-                // setError(error)
                 throw error
             })
     }
 
     // delete task 
     function deleteTask(id){
-        axios.delete(`${URL}/${id}`)
-            .then(() => {
-                setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
-            })
+        // axios.delete(`${URL}/${id}`)
+        //     .then(() => {
+        //         setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
+        //     })
     }
 
     // mark a task completed
     function completedTask(task){
         // create a copy of task so we dont mutate the state
-        const taskCopy = JSON.parse(JSON.stringify(task))
-        taskCopy.completed = !taskCopy.completed
+        // const taskCopy = JSON.parse(JSON.stringify(task))
+        // taskCopy.completed = !taskCopy.completed
 
-        axios.put(`${URL}/${task.id}`, taskCopy)
-            .then((response) => {
-                setTaskList((oldTasks) => (
-                    oldTasks.map((t) => (
-                        t.id === task.id ? {...taskCopy} : t
-                    ))
-                ))
-            })
+        // axios.put(`${URL}/${task.id}`, taskCopy)
+        //     .then((response) => {
+        //         setTaskList((oldTasks) => (
+        //             oldTasks.map((t) => (
+        //                 t.id === task.id ? {...taskCopy} : t
+        //             ))
+        //         ))
+        //     })
     }
 
     return (
@@ -127,3 +110,7 @@ export default function App(){
         </div>
     );
 }
+
+
+
+// if api doesn't get data display that in UI

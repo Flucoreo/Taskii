@@ -6,17 +6,17 @@ export default function Modal( {onHideModal, onCreate} ){
 
     const [task, setTask] = useState({
 
-        id: generateRandomId(),
+        task_id: generateRandomId(),
         title: "Untitled Task",
         notes: "",
-        completed: false,
-        group: "",
+        completed: 0,
+        task_group: "",
         dueDate: "",
         priority: "Low",
         progress: "Not Started",
         dateCreated: {currentDate},
         dateModified: "",
-        checklist: []
+        checklist: ""
 
     })
 
@@ -77,9 +77,12 @@ export default function Modal( {onHideModal, onCreate} ){
         ))
     }
 
-    const checklistItems = task.checklist.map((i) => (
-        <li className="text-sm ml-2" key={i.id}>{i.value}</li>
-    ))
+    let checklistItems = null;
+    if (task.checklist){
+        checklistItems = task.checklist.map((i) => (
+            <li className="text-sm ml-2" key={i.id}>{i.value}</li>
+        ))
+    }
 
     return (
         <div className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center flex-col'>
@@ -116,7 +119,7 @@ export default function Modal( {onHideModal, onCreate} ){
                             {/* task options Group*/}
                             <div className="flex flex-col py-2 flex-grow">
                                 <label className="text-sm text-gray-500 py-1" htmlFor="group-drop-down">Group</label>
-                                <select className="py-2 px-2 rounded-md text-sm bg-gray-200 flex-grow" onChange={handleFormUpdate} value={task.group} name="group" id="group-drop-down">
+                                <select className="py-2 px-2 rounded-md text-sm bg-gray-200 flex-grow" onChange={handleFormUpdate} value={task.task_group} name="task_group" id="group-drop-down">
                                     <option>None</option>
                                     <option>Grocery</option>
                                     <option>Cleaning</option>
@@ -162,7 +165,7 @@ export default function Modal( {onHideModal, onCreate} ){
                         </div>
 
                         {/* task checklist */}
-                        <div className='py-2'>
+                        {/* <div className='py-2'>
                             <p className="text-sm text-gray-500 py-1" htmlFor="chose-date">Checklist</p>
                             {checklistItems}
                             <div className='my-2'>
@@ -170,7 +173,7 @@ export default function Modal( {onHideModal, onCreate} ){
                                 <input className="py-0 px-2 rounded-md text-sm border-solid border-gray-300 flex-grow" onChange={handleChecklistItemUpdate} value={checkListItem.value} type="text" id="add-item" placeholder='item..'></input>
                                 <button className='text-xl px-2' name='checklist' onClick={handleFormUpdate}>+</button>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* create task */}
                         <button onClick={() => {onCreate(task); onHideModal()}} className="my-4 px-6 py-2 rounded-md bg-indigo-600 inline-block text-white text-sm">Create Task</button>

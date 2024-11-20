@@ -6,20 +6,20 @@ import Task from "./task"
 
 export default function Main( {taskData , searchKey, completedTask, showCompleted, onDelete} ){
     
-    let tasks = []
+    let tasks = [];
 
     if (showCompleted){
-        tasks = taskData.filter((i) => completedTasks(i)).map((item) => (
-            <Task key={item.id} {...item} completedTask={completedTask} onDelete={onDelete}/>
+        tasks = taskData.filter((i) => searchCompletedTasks(i)).map((item) => (
+            <Task key={item.task_id} {...item} completedTask={completedTask} onDelete={onDelete}/>
         ))
     } else {
         tasks = taskData.filter((i) => filterSearchAndCompleted(i)).map((item) => (
-            <Task key={item.id} {...item} completedTask={completedTask} onDelete={onDelete}/>
+            <Task key={item.task_id} {...item} completedTask={completedTask} onDelete={onDelete}/>
         ))
     }
 
     // show all the completed tasks and search through them
-    function completedTasks(task){
+    function searchCompletedTasks(task){
         let completed = task.completed
         let lowerTitle = task.title.toLowerCase()
         let lowerKey = searchKey.toLowerCase()

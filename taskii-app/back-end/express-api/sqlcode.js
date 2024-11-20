@@ -4,7 +4,7 @@
 // 	notes TEXT,
 // 	completed TINYINT(1) DEFAULT 0,
 // 	task_group TEXT,
-// 	dueDate DATE,
+// 	dueDate VARCHAR(20),
 // 	priority VARCHAR(20) DEFAULT "Low",
 // 	progress VARCHAR(50) DEFAULT "Not Started",
 // 	dateCreated DATE,
