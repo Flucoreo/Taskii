@@ -1,6 +1,6 @@
 # Taskii: The Task Management Dashboard
 
-A simple and efficient task management dashboard built with **Next.js** and **React**, utilizing **JSON Server** as a mock database. This application allows users to create, read, update, and delete tasks seamlessly.
+A robust and efficient task management dashboard built with **Next.js** and **React**, utilizing **MySQL** and **Express.js** for the backend. This application enables users to stay productive by allowing them to create tasks, organize them efficiently, track progress, and manage deadlines all in one place
 
 ## Features
 
