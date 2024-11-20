@@ -11,14 +11,6 @@ const connection = mysql.createConnection({
 })
 
 connection.connect()
-
 export default connection;
-
-// connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
-//   if (err) throw err
-
-//   console.log('The solution is: ', rows[0].solution)
-// })
-// connection.end()
 
 // npx nodemon db.mjs

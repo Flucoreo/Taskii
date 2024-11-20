@@ -79,17 +79,19 @@ export default function App(){
     // mark a task completed
     function completedTask(task){
         // create a copy of task so we dont mutate the state
-        // const taskCopy = JSON.parse(JSON.stringify(task))
-        // taskCopy.completed = !taskCopy.completed
+        const taskCopy = JSON.parse(JSON.stringify(task));
 
-        // axios.put(`${URL}/${task.id}`, taskCopy)
-        //     .then((response) => {
-        //         setTaskList((oldTasks) => (
-        //             oldTasks.map((t) => (
-        //                 t.id === task.id ? {...taskCopy} : t
-        //             ))
-        //         ))
-        //     })
+        taskCopy.completed == 0 ? taskCopy.completed = 1 : taskCopy.completed = 0;
+        
+        axios.patch(`${URL}/api/tasks/${task.task_id}`, taskCopy)
+            .then((response) => {
+                console.log(`completed is now ${taskCopy.completed}`)
+                setTaskList((oldTasks) => (
+                    oldTasks.map((t) => (
+                        t.task_id === task.task_id ? {...taskCopy} : t
+                    ))
+                ))
+            })
     }
 
     return (

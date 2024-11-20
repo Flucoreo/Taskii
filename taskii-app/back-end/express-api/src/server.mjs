@@ -44,6 +44,25 @@ app.get('/api/tasks', async (request, response) => {
 
 
 
+// get a task
+app.get('/api/tasks/:id', async (request, response) => {
+
+    const queryString = `SELECT * FROM tasks WHERE task_id = ${request.params.id}`;
+    let data = [];
+
+    try {
+        const [rows, fields] = await db.promise().query(queryString);
+        data = rows
+    } catch (err) {
+        console.log(`Express Server: ${err}`);
+        return response.status(500).send("Could not get data from server");
+    }
+
+    return response.status(200).json(data[0])
+});
+
+
+
 // add a task
 app.post('/api/tasks', async (request, response) => {
 
@@ -85,6 +104,21 @@ app.post('/api/tasks', async (request, response) => {
     }
 
     return response.status(201).json(sqlTask[0])
+})
+
+
+
+// patch function to mark task as completed
+app.patch('/api/tasks/:id', async (request, response) => {
+
+    try {
+        await db.promise().query(`UPDATE tasks SET completed = ? WHERE task_id = ?`, [request.body.completed, request.params.id])
+    } catch (err) {
+        console.log(`Express Server: ${err}`);
+        return response.status(500).send("Could not update data");
+    }
+    
+    response.sendStatus(202);
 })
 
 
