@@ -69,11 +69,16 @@ export default function App(){
     }
 
     // delete task 
-    function deleteTask(id){
-        // axios.delete(`${URL}/${id}`)
-        //     .then(() => {
-        //         setTaskList((oldTasks) => oldTasks.filter(item => item.id !== id))
-        //     })
+    function deleteTask(task){
+        axios.delete(`${URL}/api/tasks/${task.task_id}`)
+            .then(() => {
+                setTaskList((oldTasks) => oldTasks.filter(item => item.task_id !== task.task_id))
+                console.log('delete')
+            })
+            .catch(error => {
+                console.log("Error adding task")
+                throw error
+            })
     }
 
     // mark a task completed
@@ -85,7 +90,6 @@ export default function App(){
         
         axios.patch(`${URL}/api/tasks/${task.task_id}`, taskCopy)
             .then((response) => {
-                console.log(`completed is now ${taskCopy.completed}`)
                 setTaskList((oldTasks) => (
                     oldTasks.map((t) => (
                         t.task_id === task.task_id ? {...taskCopy} : t

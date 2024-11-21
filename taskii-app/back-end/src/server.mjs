@@ -122,5 +122,20 @@ app.patch('/api/tasks/:id', async (request, response) => {
 })
 
 
+
+// delete a task
+app.delete('/api/tasks/:id', async (request, response) => {
+
+    try {
+        await db.promise().query("DELETE FROM tasks WHERE task_id = ?", [request.params.id])
+    } catch (err) {
+        console.log(`Express Server: ${err}`);
+        return response.status(500).send("Could not delete data");
+    }
+
+    response.sendStatus(200);
+})
+
+
 // npx nodemon server.mjs
 // still need to validate incoming request!
