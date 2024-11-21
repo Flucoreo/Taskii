@@ -63,6 +63,24 @@ app.get('/api/tasks/:id', async (request, response) => {
 
 
 
+// get all checklist data
+app.get('/api/checklist', async (request, response) => {
+
+    let data = [];
+
+    try {
+        const [rows, fields] = await db.promise().query("SELECT * FROM checklist");
+        data = rows
+    } catch (err) {
+        console.log(`Express Server: ${err}`);
+        return response.status(500).send("Could not get data from server");
+    }
+
+    return response.status(200).json(data)
+});
+
+
+
 // add a task
 app.post('/api/tasks', async (request, response) => {
 
@@ -81,7 +99,7 @@ app.post('/api/tasks', async (request, response) => {
         taskObject.checklist
     ]
 
-    // get the checklist items
+    // get the checklist items from the client
     const checklistArray = [];
     if (taskObject.checklist.length >= 1){
         for (let i = 0; i < taskObject.checklist.length; i++){
@@ -93,6 +111,7 @@ app.post('/api/tasks', async (request, response) => {
     'INSERT INTO tasks (title, notes, completed, task_group, dueDate, priority, progress, dateCreated, dateModified) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_DATE(), CURRENT_DATE())';
     let result;
     let sqlTask;
+    let checklistData = []
 
     // add the task to the sever
     try {
@@ -113,10 +132,23 @@ app.post('/api/tasks', async (request, response) => {
     try {
         const [rows, fields] = await db.promise().query(`SELECT * FROM tasks WHERE task_id = ?`, result.insertId);
         sqlTask = rows;
+
+        // get the task checklist data from the server and put it into a checklist array
+        const [rows2, fields2] = await db.promise().query('SELECT * FROM tasks INNER JOIN checklist ON tasks.task_id = checklist.task_id WHERE tasks.task_id = ?', result.insertId);
+        for (let i = 0; i < rows2.length; i++){
+            let object = {
+                id: rows2[i].checklist_id,
+                value: rows2[i].checklist_item
+            }
+            checklistData.push(object)
+        }
     } catch (err) {
         console.log(`Express Server: ${err}`);
         return response.status(500).send("Could not return data");
     }
+
+    // add the checklist array to the task that will be returned to the user
+    sqlTask[0].checklist = checklistData;
 
     return response.status(201).json(sqlTask[0])
 })
