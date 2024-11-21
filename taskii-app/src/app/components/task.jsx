@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 export default function Task(props){
     const [isHover, setIsHover] = useState(false)
+    const [mouseInCheckBox, setMouseInCheckBox] = useState(false);
 
     // validate that checkist data (from database) isn't null before creating one to display
     let checklistData = [];
@@ -13,6 +14,14 @@ export default function Task(props){
             <li key={item.id}>{item.value}</li>
         ))
     }
+
+    // check appears when mouse hovers over checkbox
+    const onHover = () => {
+        setMouseInCheckBox(true);
+    };
+    const offHover = () => {
+        setMouseInCheckBox(false);
+    };
     
     {/* task display if it has been completed */}
     const cover = (<div className='absolute inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center flex-col'>
@@ -28,7 +37,7 @@ export default function Task(props){
 
             {/* Display task */}
             <div className="mb-2 flex items-center">
-                <input type="checkbox" onChange={() => props.completedTask(props)}></input>
+                <input type="checkbox" onChange={() => props.completedTask(props)} title="mark as complete" onMouseEnter={() => onHover()} onMouseLeave={() => offHover()} checked={mouseInCheckBox} className="scale-125"></input>
                 <h2 className="pl-2 text-xl">{props.title}</h2>
             </div>
             
