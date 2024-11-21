@@ -67,6 +67,8 @@ app.get('/api/tasks/:id', async (request, response) => {
 app.post('/api/tasks', async (request, response) => {
 
     // get the task object from the client and convert it to an array
+    // we dont use the client values "taskObject.task_id, taskObject.dateCreated, and taskObject.dateModified"
+    // because the database creates those values for us
     const taskObject = request.body;
     const taskArray = [
         taskObject.title,
@@ -78,17 +80,30 @@ app.post('/api/tasks', async (request, response) => {
         taskObject.progress,
         taskObject.checklist
     ]
-    // we dont use the client values "taskObject.task_id, taskObject.dateCreated, and taskObject.dateModified"
-    // because the database creates those values for us
+
+    // get the checklist items
+    const checklistArray = [];
+    if (taskObject.checklist.length >= 1){
+        for (let i = 0; i < taskObject.checklist.length; i++){
+            checklistArray.push(taskObject.checklist[i].value)
+        }
+    }
 
     const queryString = 
-    'INSERT INTO tasks (title, notes, completed, task_group, dueDate, priority, progress, dateCreated, dateModified, checklist) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_DATE(), CURRENT_DATE(), ?)';
+    'INSERT INTO tasks (title, notes, completed, task_group, dueDate, priority, progress, dateCreated, dateModified) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_DATE(), CURRENT_DATE())';
     let result;
     let sqlTask;
 
     // add the task to the sever
     try {
+        // add the task
         [result] = await db.promise().query(queryString, taskArray);
+
+        // add the task checklist 
+        for (let i = 0; i < checklistArray.length; i++){
+            await db.promise().query("INSERT INTO checklist (task_id, checklist_item) VALUES (?, ?)", [result.insertId, checklistArray[i]])
+        }        
+        
     } catch (err){
         console.log(`Express Server: ${err}`);
         return response.status(500).send("Could not insert data");
@@ -96,7 +111,7 @@ app.post('/api/tasks', async (request, response) => {
 
     // since the server adds values to task, we need to get the server's version of task to return to user
     try {
-        const [rows, fields] = await db.promise().query(`SELECT * FROM tasks WHERE task_id = ${result.insertId}`);
+        const [rows, fields] = await db.promise().query(`SELECT * FROM tasks WHERE task_id = ?`, result.insertId);
         sqlTask = rows;
     } catch (err) {
         console.log(`Express Server: ${err}`);

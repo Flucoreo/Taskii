@@ -165,7 +165,7 @@ export default function Modal( {onHideModal, onCreate} ){
                         </div>
 
                         {/* task checklist */}
-                        {/* <div className='py-2'>
+                        <div className='py-2'>
                             <p className="text-sm text-gray-500 py-1" htmlFor="chose-date">Checklist</p>
                             {checklistItems}
                             <div className='my-2'>
@@ -173,7 +173,7 @@ export default function Modal( {onHideModal, onCreate} ){
                                 <input className="py-0 px-2 rounded-md text-sm border-solid border-gray-300 flex-grow" onChange={handleChecklistItemUpdate} value={checkListItem.value} type="text" id="add-item" placeholder='item..'></input>
                                 <button className='text-xl px-2' name='checklist' onClick={handleFormUpdate}>+</button>
                             </div>
-                        </div> */}
+                        </div>
 
                         {/* create task */}
                         <button onClick={() => {onCreate(task); onHideModal()}} className="my-4 px-6 py-2 rounded-md bg-indigo-600 inline-block text-white text-sm">Create Task</button>
